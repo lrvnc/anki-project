@@ -1,22 +1,24 @@
-import time
-import requests
-import pandas as pd
-from bs4 import BeautifulSoup
-from selenium.webdriver import Firefox
 import os
+from selenium.webdriver import Firefox
+import time
 
+#Create display variable
 os.environ["DISPLAY"] = ":0"
 
 driver = Firefox()
+driver.get("https://conjugator.reverso.net/conjugation-french.html")
 
-# Pegar conteúdo HTML a partir da URL
-url = 'https://www.askpython.com/python/environment-variables-in-python'
+search_box = driver.find_element_by_name('ctl00$txtVerb')
+search_box.send_keys('Faire')
 
-option = Options()
-option.headless = True
+conjugate = driver.find_element_by_id('lbConjugate')
+conjugate.click()
 
-driver.get(url)
+search_box = driver.find_element_by_name('ctl00$txtVerb')
+search_box.send_keys('Aller')
+
+conjugate = driver.find_element_by_id('lbConjugate')
+conjugate.click()
 
 time.sleep(5)
-
 driver.quit()
