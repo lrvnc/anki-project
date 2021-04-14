@@ -90,7 +90,7 @@ for word in words:
     #Formating le passé composé
     if passe_compose[2]=="j'ai":
         card_frontside.append(passe_compose[0] + ' ' + passe_compose[1] + ' (avec avoir): ' + word)
-        back = passe_compose[2] + ' ' + passe_compose[3] + ', '
+        back = passe_compose[2].capitalize() + ' ' + passe_compose[3] + ', '
         for i in range(4,19,3): #Setting the back of the card
             back += passe_compose[i].capitalize() + ' ' + passe_compose[i+1] + ' ' + passe_compose[i+2] + ', '
         card_backside.append(back[0:len(back)-2])
