@@ -13,13 +13,13 @@ def write_csv(card_backside, card_frontside, translations):
 
 inicio = time.time()
 
-#Create display variable
+# Create display variable
 os.environ["DISPLAY"] = ":0"
 
 driver = Firefox()
 driver.get("https://conjugacao.reverso.net/conjugacao-frances.html")
 
-#List of desired words
+# List of desired words
 words = ['être', 'avoir', 'entendre', 'sentir', 'voir', 'marcher', 'écouter', 'chanter', 'montrer', 'parler', \
     'regarder', 'voler', 'fermer', 'ouvrir', 'sortir', 'entrer', 'briller', 'donner', 'finir', 'faire', 'commencer', \
         'tomber', 'jouer', 'blanchir', 'fleurir', 'grandir', 'grossir', 'jaunir', 'rougir', 'coûter', 'mesurer', 'peser', \
@@ -29,33 +29,33 @@ words = ['être', 'avoir', 'entendre', 'sentir', 'voir', 'marcher', 'écouter', 
 
 print('Pesquisando ' + str(len(words)) + ' verbos\n')
 
-#Lists to save the verbs
+# Lists to save the verbs
 card_frontside = []
 card_backside = []
 translations = []
 back = ''
 
-#Loop through desired words
+# Loop through desired words
 for word in words:
 
     tic = time.time()
 
-    #Search the word
+    # Search the word
     search_box = driver.find_element_by_name('ctl00$txtVerb')
     search_box.send_keys(word)
 
     conjugate = driver.find_element_by_id('lbConjugate')
     conjugate.click()
 
-    #Scrap le présent, le futur and le passé composé
+    # Scrap le présent, le futur and le passé composé
     present = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/div/form/div[3]/div/div[1]/div[4]/div/div/div[1]/div[2]/div').text.split()
     futur = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/div/form/div[3]/div/div[1]/div[4]/div/div/div[1]/div[4]/div').text.split()
     passe_compose = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/div/form/div[3]/div/div[1]/div[4]/div/div/div[3]/div[2]/div').text.split()
 
-    #Scrap the translation
+    # Scrap the translation
     translation = driver.find_element_by_xpath('/html/body/div[2]/div/div/div[1]/div/form/div[3]/div/div[1]/div[3]/div[1]/div/div[3]/p').text
 
-    #Formating le présent
+    # Formating le présent
     card_frontside.append(present[0] + ': ' + word) #Setting the front of the card
 
     if len(present)!=13:
@@ -71,7 +71,7 @@ for word in words:
     translations.append(translation.capitalize())
     back = ''
 
-    #Formating le futur
+    # Formating le futur
     card_frontside.append(futur[0] + ': ' + word) #Setting the front of the card
 
     if len(futur)!=13:
@@ -87,7 +87,7 @@ for word in words:
     translations.append(translation.capitalize())
     back = ''
 
-    #Formating le passé composé
+    # Formating le passé composé
     if passe_compose[2]=="j'ai":
         card_frontside.append(passe_compose[0] + ' ' + passe_compose[1] + ' (avec avoir): ' + word)
         back = passe_compose[2].capitalize() + ' ' + passe_compose[3] + ', '
