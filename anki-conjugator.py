@@ -7,7 +7,7 @@ def write_csv(card_backside, card_frontside, translations):
     d = {'front': card_frontside, 'back': card_backside, 'translation': translations}
     df = pd.DataFrame(data=d)
 
-    doc = open('verbs_csv', 'w')
+    doc = open('conjugator_csv', 'w')
     doc.write(df.to_csv(header=False, index=False))
     doc.close()
 
