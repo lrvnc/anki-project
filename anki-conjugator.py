@@ -2,14 +2,21 @@ import os
 from selenium.webdriver import Firefox
 import time
 import pandas as pd
+import csv
 
-def write_csv(card_backside, card_frontside, translations):
+def write_csv(card_backside, card_frontside, translations, csv_fileName):
     d = {'front': card_frontside, 'back': card_backside, 'translation': translations}
     df = pd.DataFrame(data=d)
 
-    doc = open('conjugator_csv', 'w')
+    doc = open('anki-cards/' + str(csv_fileName), 'w')
     doc.write(df.to_csv(header=False, index=False))
     doc.close()
+
+csv_file = input('CSV file with desired words: ')
+csv_fileName = input('CSV file name output: ')
+
+# Create display variable
+os.environ["DISPLAY"] = ":0"
 
 inicio = time.time()
 
@@ -19,13 +26,14 @@ os.environ["DISPLAY"] = ":0"
 driver = Firefox()
 driver.get("https://conjugacao.reverso.net/conjugacao-frances.html")
 
-# List of desired words
-words = ['être', 'avoir', 'entendre', 'sentir', 'voir', 'marcher', 'écouter', 'chanter', 'montrer', 'parler', \
-    'regarder', 'voler', 'fermer', 'ouvrir', 'sortir', 'entrer', 'briller', 'donner', 'finir', 'faire', 'commencer', \
-        'tomber', 'jouer', 'blanchir', 'fleurir', 'grandir', 'grossir', 'jaunir', 'rougir', 'coûter', 'mesurer', 'peser', \
-            'représenter', 'attendre', 'habiter', 'monter', 'sonner', 'dire', 'épouser', 'mettre', 'prendre', 'visiter', \
-                'aller', 'venir', 'apporter', 'ajouter', 'arriver', 'coucher', 'passer', 'remercier', 'boire', 'servir', \
-                    'déjeuner', 'manger', 'préparer']
+# Lists
+with open(csv_file, newline='') as f:
+    reader = csv.reader(f)
+    data = list(reader)
+
+words = []
+for i in range(len(data)):
+    words.append(str(data[i][0]).capitalize())
 
 print('Pesquisando ' + str(len(words)) + ' verbos\n')
 
@@ -113,7 +121,7 @@ for word in words:
         translations.append(translation.capitalize())
         back = ''
     
-    write_csv(card_backside, card_frontside, translations)
+    write_csv(card_backside, card_frontside, translations, csv_fileName)
     tac = time.time()
     print(word.capitalize() + ': conjugado! (' + str(tac-tic) + 's)')
 

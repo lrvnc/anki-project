@@ -14,4 +14,4 @@ df = df.drop(columns=['Grau de confiança', 'Última prática'])
 df = df.dropna()
 
 for categoria in ['Verb', 'Noun', 'Adjective', 'Adverb']:
-    write_csv(df.loc[df['Categoria gramatical'] == categoria],'duolingo_' + categoria.lower() + '_csv')
+    write_csv(df.loc[df['Categoria gramatical'] == categoria], categoria.lower() + '.csv')
