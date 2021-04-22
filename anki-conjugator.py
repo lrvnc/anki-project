@@ -120,6 +120,16 @@ for word in words:
         card_backside.append(back[0:len(back)-2])
         translations.append(translation.capitalize())
         back = ''
+
+    # Formating le futur proche
+    card_frontside.append('Futur proche: ' + word)
+    card_backside.append('Je vais ' + word.lower() + ', Tu vas ' + word.lower() + ', Il/elle va ' + word.lower() + ', Nous allons ' + word.lower() + ', Vous allez ' + word.lower() + ', Ils/elles vont ' + word.lower())
+    translations.append(translation.capitalize())
+
+    # Formating le passé récent
+    card_frontside.append('Passé récent: ' + word)
+    card_backside.append('Je viens de ' + word.lower() + ', Tu viens de ' + word.lower() + ', Il/elle vient de ' + word.lower() + ', Nous venons de ' + word.lower() + ', Vous venez de ' + word.lower() + ', Ils/elles viennent de ' + word.lower())
+    translations.append('Acabei de ' + translation)
     
     write_csv(card_backside, card_frontside, translations, csv_fileName)
     tac = time.time()
