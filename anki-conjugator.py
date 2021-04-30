@@ -20,9 +20,6 @@ os.environ["DISPLAY"] = ":0"
 
 inicio = time.time()
 
-# Create display variable
-os.environ["DISPLAY"] = ":0"
-
 driver = Firefox()
 driver.get("https://conjugacao.reverso.net/conjugacao-frances.html")
 
