@@ -237,5 +237,4 @@ for word in words:
 
 print('\nFim da execução\n')
 
-
 driver.quit()
